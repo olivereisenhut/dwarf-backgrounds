@@ -18,6 +18,8 @@ class DbusMessenger : GLib.Object {
         }
     }
 
+    ~DbusMessenger() {}
+
     public void set_lock_screen_background (string path) {
         try {
            this.accountsservice.set_background_file (path);

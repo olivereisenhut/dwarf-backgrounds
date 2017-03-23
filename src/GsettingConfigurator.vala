@@ -9,9 +9,9 @@ class GsettingConfigurator : GLib.Object {
     public GsettingConfigurator () {
         this.settings = new GLib.Settings ("org.gnome.desktop.background");
     }
-    ~GsettingConfigurator () {
 
-    }
+    ~GsettingConfigurator () {}
+
     public string get_wallpaper_filename () {
         return GLib.Path.get_basename (GLib.Uri.unescape_string (this.wallpaper_uri));
     }
