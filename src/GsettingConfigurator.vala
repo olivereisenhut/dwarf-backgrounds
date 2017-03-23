@@ -11,8 +11,4 @@ class GsettingConfigurator : GLib.Object {
     }
 
     ~GsettingConfigurator () {}
-
-    public string get_wallpaper_filename () {
-        return GLib.Path.get_basename (GLib.Uri.unescape_string (this.wallpaper_uri));
-    }
 }

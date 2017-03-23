@@ -3,19 +3,28 @@ class UnsplashApi : GLib.Object {
 
     public UnsplashApi () {}
     ~ UnsplashApi() {}
-
-    public GLib.File download_random_image (int width = 1920, int height = 1080) {
-       return this.download_image(width, height, "random");   
+    
+    public GLib.File download_image_with_options (string[] options = {"random", null}, int width = 1920, int height = 1080) {
+        return this.download_image(width, height, UnsplashApi.build_arguments (options));
     }
 
-    private GLib.File download_image (int width, int height, string method) {
+    private GLib.File download_image (int width, int height, string arguments) {
         var dimension_string = UnsplashApi.build_dimensions (width, height);
-        var picture_url = UnsplashApi.build_url (dimension_string, method);
+        var picture_url = UnsplashApi.build_url (dimension_string, arguments);
         return File.new_for_uri (picture_url);
     }
 
-    private static string build_url (string dimensions, string method) {
-        return @"$UNSPLASH_BASE_URL/$method/$dimensions";
+    private static string build_arguments (string[] category) {
+        var argument = category[0];
+        if (category[1] == null)
+            return argument;
+        var value = category[1];
+        return @"$argument/$value";
+    }
+
+    private static string build_url (string dimensions, string arguments) {
+        stdout.printf(@"$UNSPLASH_BASE_URL/$arguments/$dimensions");
+        return @"$UNSPLASH_BASE_URL/$arguments/$dimensions";
     }
 
     private static string build_dimensions (int width, int height) {
