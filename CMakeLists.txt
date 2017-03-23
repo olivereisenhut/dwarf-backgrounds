@@ -17,7 +17,7 @@
     find_package(PkgConfig)
 
     # now let's actually check for the required dependencies
-    pkg_check_modules(DEPS REQUIRED gio-2.0)
+    pkg_check_modules(DEPS REQUIRED gio-2.0 posix)
 
     add_definitions(${DEPS_CFLAGS})
     link_libraries(${DEPS_LIBRARIES})
@@ -38,6 +38,7 @@
     # tell what libraries to use when compiling
     PACKAGES
         gio-2.0
+        posix
     )
 
     # tell cmake what to call the executable we just made
