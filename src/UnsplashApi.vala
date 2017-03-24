@@ -23,7 +23,6 @@ class UnsplashApi : GLib.Object {
     }
 
     private static string build_url (string dimensions, string arguments) {
-        stdout.printf(@"$UNSPLASH_BASE_URL/$arguments/$dimensions");
         return @"$UNSPLASH_BASE_URL/$arguments/$dimensions";
     }
 
