@@ -1,15 +1,11 @@
 class GnomeUnsplashBackgrounds {
     private static bool version = false;
-    private static string? category = null;
     private static int? desktop_width = null;
     private static int? desktop_height = null;
 
     private const GLib.OptionEntry[] options = {
 		// --version
 		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display version number", null },
-
-		// --category
-		{ "category", 0, 0, OptionArg.STRING, ref category, "Choose category if empty random", "STRING" },
 
 		// --width
 		{ "width", 0, 0, OptionArg.INT, ref desktop_width, "Width of the image", "INT" },
@@ -40,16 +36,39 @@ class GnomeUnsplashBackgrounds {
         }
 
         var gsettings_configurator = new GsettingConfigurator ();
-        var api = new UnsplashApi ();
+        if (desktop_width == null || desktop_height == null) {
+            desktop_width = 1920;
+            desktop_height = 1080;
+        }
+        var api = new UnsplashApi (desktop_width, desktop_height);
         var dbusMessenger = new DbusMessenger ();
         GLib.File image;
 
-        if (category != null && desktop_width != null && desktop_height != null) {
-            image = api.download_image_with_options({"category", category}, desktop_width, desktop_height);
-        } else if (category != null) {
-            image = api.download_image_with_options({"category", category});
-        } else {
-            image = api.download_image_with_options ();
+        if (!CommandParser.is_valid_command (args[1])) {
+            stdout.printf("No valid command provided");
+            return 0;
+        }
+        
+        if (args[1] != "random" && args[2] == null) {
+            stdout.printf("No value provided");
+            return 0;
+        }
+
+        try {
+            var command = CommandParser.get_right_command (args[1], args[2] ?? "", api);
+            var result = CommandExecuter.execute_command (command);
+            if (result == null) {
+                return 0;
+            }
+            image = result as GLib.File;
+        } catch (BadArgumentError e) {
+            stdout.printf("%s", e.message);
+            return 0;
+        }
+
+        if (image.query_file_type (0) == FileType.UNKNOWN) { 
+            stdout.printf("Image couldn't be downloaded");
+            return 1;
         }
 
         FilesystemController.move_image_to_pictures_directory (image);

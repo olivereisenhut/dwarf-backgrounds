@@ -1,11 +1,15 @@
 class UnsplashApi : GLib.Object {
     private const string UNSPLASH_BASE_URL = "https://source.unsplash.com"; 
-
-    public UnsplashApi () {}
+    private int width;
+    private int height;
+    public UnsplashApi (int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
     ~ UnsplashApi() {}
     
-    public GLib.File download_image_with_options (string[] options = {"random", null}, int width = 1920, int height = 1080) {
-        return this.download_image(width, height, UnsplashApi.build_arguments (options));
+    public GLib.File download_image_with_options (string method, string[] arguments) {
+        return this.download_image(width, height, UnsplashApi.build_arguments (method, arguments));
     }
 
     private GLib.File download_image (int width, int height, string arguments) {
@@ -14,12 +18,17 @@ class UnsplashApi : GLib.Object {
         return File.new_for_uri (picture_url);
     }
 
-    private static string build_arguments (string[] category) {
-        var argument = category[0];
-        if (category[1] == null)
-            return argument;
-        var value = category[1];
-        return @"$argument/$value";
+    private static string build_arguments (string method, string[] arguments) {
+        if (arguments.length == 0) return method;
+        var argument_string = "";
+        foreach (var argument in arguments) {
+            if (argument == arguments[0]) {
+                argument_string += argument;
+                continue;
+            }
+           argument_string += "/" + argument;
+        }
+        return @"$method/$argument_string";
     }
 
     private static string build_url (string dimensions, string arguments) {
