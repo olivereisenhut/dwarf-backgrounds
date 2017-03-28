@@ -17,7 +17,7 @@
     find_package(PkgConfig)
 
     # now let's actually check for the required dependencies
-    pkg_check_modules(DEPS REQUIRED gio-2.0 posix)
+    pkg_check_modules(DEPS REQUIRED gio-2.0 granite)
 
     add_definitions(${DEPS_CFLAGS})
     link_libraries(${DEPS_LIBRARIES})
@@ -33,11 +33,23 @@
     # files we want to compile
     include(ValaPrecompile)
     vala_precompile(VALA_C ${EXEC_NAME}
-        src/gnome-unsplash-backgrounds.vala
+        src/GnomeUnsplashBackgrounds.vala
         src/GsettingConfigurator.vala
+        src/UnsplashApi.vala
+        src/DbusMessenger.vala
+        src/CommandParser.vala
+        src/CommandExecuter.vala
+        src/FilesystemController.vala
+        src/Errors/BadArgumentError.vala
+        src/Commands/ICommand.vala
+        src/Commands/CategoryCommand.vala
+        src/Commands/RandomCommand.vala
+        src/Commands/UserCommand.vala
+
     # tell what libraries to use when compiling
     PACKAGES
         gio-2.0
+        granite
         posix
     )
 
