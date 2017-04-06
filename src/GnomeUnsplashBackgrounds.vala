@@ -56,11 +56,10 @@ class GnomeUnsplashBackgrounds {
 
         try {
             var command = CommandParser.get_right_command (args[1], args[2] ?? "", api);
-            var result = CommandExecuter.execute_command (command);
-            if (result == null) {
+            image = CommandExecuter.execute_command (command);
+            if (image == null) {
                 return 0;
             }
-            image = result as GLib.File;
         } catch (BadArgumentError e) {
             stdout.printf("%s", e.message);
             return 0;
