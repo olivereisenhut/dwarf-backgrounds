@@ -20,9 +20,10 @@ class GnomeUnsplashBackgrounds {
     public static int main (string[] args) {
 
         try {
-            var opt_context = new OptionContext ("- change your background with an Unsplash image");
+            var opt_context = new OptionContext ("[COMMAND] [ARG...]");
             opt_context.set_help_enabled (true);
 			opt_context.add_main_entries (options, null);
+            opt_context.set_summary("shit happens every day");
 			opt_context.parse (ref args);
         } catch (GLib.OptionError e) {
             stdout.printf ("error: %s\n", e.message);
