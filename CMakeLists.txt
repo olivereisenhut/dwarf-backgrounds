@@ -1,5 +1,5 @@
     # project name
-    project (gnome-unsplash-backgrounds)
+    project (dwarf-backgrounds)
 
     # the oldest stable cmake version we support
     cmake_minimum_required (VERSION 2.6)
@@ -8,7 +8,7 @@
     list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
     list (APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/src)
 
-    set (EXEC_NAME "gnome-unsplash-backgrounds")
+    set (EXEC_NAME "dwarf-backgrounds")
     set (RELEASE_NAME "Initial Release")
     set (VERSION "0.1")
     set (VERSION_INFO "The initial release")
@@ -33,7 +33,7 @@
     # files we want to compile
     include(ValaPrecompile)
     vala_precompile(VALA_C ${EXEC_NAME}
-        src/GnomeUnsplashBackgrounds.vala
+        src/DwarfBackgrounds.vala
         src/GsettingConfigurator.vala
         src/UnsplashApi.vala
         src/DbusMessenger.vala

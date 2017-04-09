@@ -1,4 +1,4 @@
-class GnomeUnsplashBackgrounds {
+class DwarfBackgrounds {
     private static bool version = false;
     private static int? desktop_width = null;
     private static int? desktop_height = null;

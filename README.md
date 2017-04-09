@@ -1,4 +1,4 @@
-# Gnome Unsplash Backgrounds
+# Dwarf Backgrounds
 
 ## Purpose
 This tool will change you background with a neat picture from Unsplash.com
@@ -6,7 +6,7 @@ This tool will change you background with a neat picture from Unsplash.com
 ## Build
 
 ### Build with Valac
-compile with `valac GnomeUnsplashBackgrounds.vala GsettingConfigurator.vala UnsplashApi.vala FilesystemController.vala DbusMessenger.vala CommandParser.vala CommandExecuter.vala Commands/ICommand.vala Commands/UserCommand.vala Commands/RandomCommand.vala Commands/CategroyCommand.vala Errors/BadArgumentError.vala --pkg gio-2.0 --pkg posix`
+compile with `valac DwarfBackgrounds.vala GsettingConfigurator.vala UnsplashApi.vala FilesystemController.vala DbusMessenger.vala CommandParser.vala CommandExecuter.vala Commands/ICommand.vala Commands/UserCommand.vala Commands/RandomCommand.vala Commands/CategoryCommand.vala Errors/BadArgumentError.vala --pkg gio-2.0 --pkg posix`
 
 ### Build with CMake
 1. First run `cmake .`
